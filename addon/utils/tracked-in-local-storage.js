@@ -1,6 +1,6 @@
-import macro from 'macro-decorators';
-import { getOwner } from '@ember/application';
-import { isNone } from '@ember/utils';
+import macro from "macro-decorators";
+import { getOwner } from "@ember/application";
+import { isNone } from "@ember/utils";
 
 /**
  * Core macro used for decorating a property to be synced with and tracked in local storage
@@ -20,12 +20,21 @@ export function trackedInLocalStorage({
   return macro({
     get(obj, key) {
       const _keyName = this[keyNameProperty] || keyName || key;
-      return localStorageGet.call(this, { keyName: _keyName, defaultValue, skipPrefixes });
+      return localStorageGet.call(this, {
+        keyName: _keyName,
+        defaultValue,
+        skipPrefixes,
+      });
     },
 
     set(obj, key, value) {
       const _keyName = this[keyNameProperty] || keyName || key;
-      return localStorageSet.call(this, { keyName: _keyName, defaultValue, value, skipPrefixes });
+      return localStorageSet.call(this, {
+        keyName: _keyName,
+        defaultValue,
+        value,
+        skipPrefixes,
+      });
     },
   });
 }
@@ -40,7 +49,11 @@ export function trackedInLocalStorage({
  * @returns {string}
  */
 export function localStorageGet({ keyName, defaultValue, skipPrefixes }) {
-  const lsValue = _getTrackedLocalStorageService(this).getItem(keyName, skipPrefixes);
+  const trackedLocalStorage = _getTrackedLocalStorageService(this);
+  const lsValue = trackedLocalStorage?.getItem(
+    keyName,
+    skipPrefixes
+  );
   return isNone(lsValue) ? defaultValue : lsValue;
 }
 
@@ -54,18 +67,22 @@ export function localStorageGet({ keyName, defaultValue, skipPrefixes }) {
  * @param {string[]} params.skipPrefixes
  * @returns {string}
  */
-export function localStorageSet({ keyName, defaultValue, value, skipPrefixes }) {
+export function localStorageSet({
+  keyName,
+  defaultValue,
+  value,
+  skipPrefixes,
+}) {
   const trackedLocalStorage = _getTrackedLocalStorageService(this);
 
   if (value === defaultValue || value === undefined) {
-    trackedLocalStorage.removeItem(keyName, skipPrefixes);
+    trackedLocalStorage?.removeItem(keyName, skipPrefixes);
   } else {
-    trackedLocalStorage.setItem(keyName, value, skipPrefixes);
+    trackedLocalStorage?.setItem(keyName, value, skipPrefixes);
   }
 
   return value;
 }
-
 
 /**
  * Gets the tracked local storage service
@@ -73,5 +90,7 @@ export function localStorageSet({ keyName, defaultValue, value, skipPrefixes }) 
 function _getTrackedLocalStorageService(context) {
   // getOwner doesn't work in tests, but luckily, we can just pick the owner from the `context`
   const owner = context.owner || getOwner(context);
-  return owner.lookup('service:tracked-local-storage');
+  if (!owner.isDestroying && !owner.isDestroyed) {
+    return owner.lookup("service:tracked-local-storage");
+  }
 }
