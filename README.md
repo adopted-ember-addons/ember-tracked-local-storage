@@ -26,7 +26,7 @@ export default class DemoComponent extends Component {
 }
 ```
 
-Full guides can be found on the [documentation site](https://leadfeeder.github.io/ember-tracked-local-storage).
+Full guides can be found on the [documentation site](https://adopted-ember-addons.github.io/ember-tracked-local-storage).
 
 
 ## Contributing
