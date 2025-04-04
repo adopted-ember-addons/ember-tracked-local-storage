@@ -1,5 +1,5 @@
 module.exports = {
-  purge: [],
+  content: ['./tests/dummy/app/**/*.{gjs,gts,hbs,html,js,ts}'],
   theme: {
     extend: {
       colors: {
@@ -7,11 +7,11 @@ module.exports = {
         blue: '#2DA2C5',
       },
       transformOrigin: {
-        'full': '100%',
-      }
+        full: '100%',
+      },
     },
     fontFamily: {
-      'sans': ['Lato', 'sans-serif'],
+      sans: ['Lato', 'sans-serif'],
     },
     boxShadow: {
       default: '0 5px 20px rgba(0,0,0,0.05)',
@@ -22,4 +22,4 @@ module.exports = {
   },
   variants: {},
   plugins: [],
-}
+};

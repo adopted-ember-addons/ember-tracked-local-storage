@@ -2,13 +2,11 @@
 
 An addon to allow the use of local storage values to use glimmer tracking and cause template re-renders on updates.
 
-
 ## Compatibility
 
-* Ember.js v4.4 or above
-* Ember CLI v4.4 or above
-* Node.js v14 or above
-
+- Ember.js v4.12 or above
+- Ember CLI v4.12 or above
+- Node.js v18 or above
 
 ## Installation
 
@@ -31,11 +29,9 @@ export default class DemoComponent extends Component {
 Full guides can be found on the [documentation site](https://leadfeeder.github.io/ember-tracked-local-storage).
 
 
-
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
-
 
 ## License
 

@@ -5,7 +5,9 @@ export default class BottomNavComponent extends Component {
   @service router;
 
   get currentRouteIndex() {
-    const currentRoute = this.args.routes.find(({ route }) => this.router.currentRouteName === route);
+    const currentRoute = this.args.routes.find(
+      ({ route }) => this.router.currentRouteName === route,
+    );
     return this.args.routes.indexOf(currentRoute);
   }
 

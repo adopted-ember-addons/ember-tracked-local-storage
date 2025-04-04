@@ -1,7 +1,10 @@
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { fillIn, visit, settled } from '@ember/test-helpers';
-import { TEST_DEFAULT_VALUE, TEST_KEY_NAME } from 'dummy/components/test-component';
+import {
+  TEST_DEFAULT_VALUE,
+  TEST_KEY_NAME,
+} from 'dummy/components/test-component';
 
 const page = {
   value: '[data-test-value]',
@@ -13,31 +16,45 @@ function visitTestRoute() {
 }
 
 // eslint-disable-next-line max-lines-per-function
-module('Acceptance | tracked local storage', function(hooks) {
+module('Acceptance | tracked local storage', function (hooks) {
   setupApplicationTest(hooks);
 
   let trackedLocalStorage;
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     trackedLocalStorage = this.owner.lookup('service:tracked-local-storage');
     trackedLocalStorage.clear();
   });
 
-  test('basic getting and updating works and causes a template rerender', async function(assert) {
+  test('basic getting and updating works and causes a template rerender', async function (assert) {
     const updatedValue = 'updated value';
 
     await visitTestRoute();
 
-    assert.dom(page.value).hasText(TEST_DEFAULT_VALUE, 'it display default text');
-    assert.notOk(trackedLocalStorage.getItem(TEST_KEY_NAME), 'value is not stored in local storage when default value is being used');
+    assert
+      .dom(page.value)
+      .hasText(TEST_DEFAULT_VALUE, 'it display default text');
+    assert.notOk(
+      trackedLocalStorage.getItem(TEST_KEY_NAME),
+      'value is not stored in local storage when default value is being used',
+    );
 
     await fillIn(page.input, updatedValue);
 
-    assert.dom(page.value).hasText(updatedValue, 'the template has been rerendered with the updated text');
-    assert.equal(trackedLocalStorage.getItem(TEST_KEY_NAME), updatedValue, 'value is stored in local storage when different to default value');
+    assert
+      .dom(page.value)
+      .hasText(
+        updatedValue,
+        'the template has been rerendered with the updated text',
+      );
+    assert.strictEqual(
+      trackedLocalStorage.getItem(TEST_KEY_NAME),
+      updatedValue,
+      'value is stored in local storage when different to default value',
+    );
   });
 
-  test('updating a global prefix correctly triggers a template rerender', async function(assert) {
+  test('updating a global prefix correctly triggers a template rerender', async function (assert) {
     const testPrefixName = 'test-prefix-name';
     const updatedValue = 'updated value';
     trackedLocalStorage.setGlobalPrefix(testPrefixName, 1);
@@ -45,16 +62,22 @@ module('Acceptance | tracked local storage', function(hooks) {
     await visitTestRoute();
     await fillIn(page.input, updatedValue);
 
-    assert.dom(page.value).hasText(updatedValue, 'it shows the updated value when prefix matches');
+    assert
+      .dom(page.value)
+      .hasText(updatedValue, 'it shows the updated value when prefix matches');
 
     trackedLocalStorage.setGlobalPrefix(testPrefixName, 2);
     await settled();
 
-    assert.dom(page.value).hasText(TEST_DEFAULT_VALUE, 'it reverts back to showing the default value when the prefix value changes');
+    assert
+      .dom(page.value)
+      .hasText(
+        TEST_DEFAULT_VALUE,
+        'it reverts back to showing the default value when the prefix value changes',
+      );
   });
 
-  test('removing a key reverts a value back to the default value triggers a template rerender', async function(assert) {
-    const testPrefixName = 'test-prefix-name';
+  test('removing a key reverts a value back to the default value triggers a template rerender', async function (assert) {
     const updatedValue = 'updated value';
 
     await visitTestRoute();
@@ -65,6 +88,11 @@ module('Acceptance | tracked local storage', function(hooks) {
     trackedLocalStorage.removeItem(TEST_KEY_NAME);
     await settled();
 
-    assert.dom(page.value).hasText(TEST_DEFAULT_VALUE, 'it reverts back to showing the default value when the key is removed');
+    assert
+      .dom(page.value)
+      .hasText(
+        TEST_DEFAULT_VALUE,
+        'it reverts back to showing the default value when the key is removed',
+      );
   });
 });
