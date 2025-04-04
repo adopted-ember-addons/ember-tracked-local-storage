@@ -44,13 +44,16 @@ export default class TrackedLocalStorageService extends Service {
    * @returns {void}
    */
   setGlobalPrefix(name, value) {
-    const existingPrefix = this._globalPrefixes.find(({ prefixName }) => prefixName === name);
+    const existingPrefix = this._globalPrefixes.find(
+      ({ prefixName }) => prefixName === name,
+    );
     if (existingPrefix) {
       existingPrefix.prefixValue = value;
     } else {
-      this._globalPrefixes = [...this._globalPrefixes, { prefixName: name, prefixValue: value }].sort((a, b) =>
-        b.prefixName.localeCompare(a.prefixName)
-      );
+      this._globalPrefixes = [
+        ...this._globalPrefixes,
+        { prefixName: name, prefixValue: value },
+      ].sort((a, b) => b.prefixName.localeCompare(a.prefixName));
     }
     // Ensure to trigger a rerender after prefix change so new values are taken into account
     this._trackedLocalStorage.triggerRerender();
@@ -67,7 +70,9 @@ export default class TrackedLocalStorageService extends Service {
   getItem(keyName, skipPrefixes) {
     try {
       this._validateKey(keyName);
-      return this._trackedLocalStorage.getItem(this._getPrefixedKey(keyName, skipPrefixes));
+      return this._trackedLocalStorage.getItem(
+        this._getPrefixedKey(keyName, skipPrefixes),
+      );
     } catch (err) {
       console.error(err);
     }
@@ -85,7 +90,10 @@ export default class TrackedLocalStorageService extends Service {
   setItem(keyName, value, skipPrefixes) {
     try {
       this._validateKey(keyName);
-      this._trackedLocalStorage.setItem(this._getPrefixedKey(keyName, skipPrefixes), value);
+      this._trackedLocalStorage.setItem(
+        this._getPrefixedKey(keyName, skipPrefixes),
+        value,
+      );
     } catch (err) {
       console.error(err);
     }
@@ -102,7 +110,9 @@ export default class TrackedLocalStorageService extends Service {
   removeItem(keyName, skipPrefixes) {
     try {
       this._validateKey(keyName);
-      this._trackedLocalStorage.removeItem(this._getPrefixedKey(keyName, skipPrefixes));
+      this._trackedLocalStorage.removeItem(
+        this._getPrefixedKey(keyName, skipPrefixes),
+      );
     } catch (err) {
       console.error(err);
     }
@@ -119,7 +129,10 @@ export default class TrackedLocalStorageService extends Service {
   _getPrefixedKey(keyName, skipPrefixes = []) {
     return [
       ...this._globalPrefixes
-        .map(({ prefixName, prefixValue }) => !skipPrefixes.includes(prefixName) && prefixValue)
+        .map(
+          ({ prefixName, prefixValue }) =>
+            !skipPrefixes.includes(prefixName) && prefixValue,
+        )
         .filter(Boolean),
       keyName,
     ].join('.');

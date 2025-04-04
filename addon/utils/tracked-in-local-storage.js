@@ -1,6 +1,6 @@
-import macro from "macro-decorators";
-import { getOwner } from "@ember/application";
-import { isNone } from "@ember/utils";
+import macro from 'macro-decorators';
+import { getOwner } from '@ember/application';
+import { isNone } from '@ember/utils';
 
 /**
  * Core macro used for decorating a property to be synced with and tracked in local storage
@@ -50,10 +50,7 @@ export function trackedInLocalStorage({
  */
 export function localStorageGet({ keyName, defaultValue, skipPrefixes }) {
   const trackedLocalStorage = _getTrackedLocalStorageService(this);
-  const lsValue = trackedLocalStorage?.getItem(
-    keyName,
-    skipPrefixes
-  );
+  const lsValue = trackedLocalStorage?.getItem(keyName, skipPrefixes);
   return isNone(lsValue) ? defaultValue : lsValue;
 }
 
@@ -91,6 +88,6 @@ function _getTrackedLocalStorageService(context) {
   // getOwner doesn't work in tests, but luckily, we can just pick the owner from the `context`
   const owner = context.owner || getOwner(context);
   if (!owner.isDestroying && !owner.isDestroyed) {
-    return owner.lookup("service:tracked-local-storage");
+    return owner.lookup('service:tracked-local-storage');
   }
 }

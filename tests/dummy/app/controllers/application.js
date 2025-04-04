@@ -17,4 +17,4 @@ export default class ApplicationController extends Controller {
   get allRoutes() {
     return [...this.introductionRoutes, ...this.apiReferenceRoutes];
   }
-};
+}
