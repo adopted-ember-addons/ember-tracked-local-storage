@@ -7,6 +7,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
+  this.route('application-tests');
   this.route('global-prefixes');
   this.route('how-to-use-it');
   this.route('installation');

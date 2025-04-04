@@ -1,4 +1,4 @@
-import { module, test } from 'ember-qunit';
+import { module, test } from 'qunit';
 import { setupWindowMock } from 'ember-window-mock/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 
@@ -89,10 +89,7 @@ module('Unit | Service | tracked local storage', function (hooks) {
     assert.strictEqual(trackedLocalStorage.length, 0, 'length is 0');
   });
 
-  function assertSkipPrefixesWorks(
-    assert,
-    { skipPrefixes, expectedKey, label },
-  ) {
+  function assertSkipPrefixesWorks(assert, { skipPrefixes, expectedKey }) {
     trackedLocalStorage.setItem(testKey, testValue, skipPrefixes);
     let storedValue = window.localStorage.getItem(expectedKey);
     assert.strictEqual(
@@ -112,7 +109,7 @@ module('Unit | Service | tracked local storage', function (hooks) {
     storedValue = window.localStorage.getItem(expectedKey);
     assert.strictEqual(
       storedValue,
-      undefined,
+      null,
       `stored value is removed when skipping ${skipPrefixes} prefix`,
     );
   }

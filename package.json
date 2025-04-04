@@ -67,7 +67,7 @@
     "ember-source-channel-url": "^3.0.0",
     "ember-template-lint": "^6.1.0",
     "ember-try": "^3.0.0",
-    "ember-window-mock": "^0.7.2",
+    "ember-window-mock": "^1.0.2",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-ember": "^12.5.0",

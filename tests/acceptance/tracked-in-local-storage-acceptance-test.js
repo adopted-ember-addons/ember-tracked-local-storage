@@ -78,7 +78,6 @@ module('Acceptance | tracked local storage', function (hooks) {
   });
 
   test('removing a key reverts a value back to the default value triggers a template rerender', async function (assert) {
-    const testPrefixName = 'test-prefix-name';
     const updatedValue = 'updated value';
 
     await visitTestRoute();
