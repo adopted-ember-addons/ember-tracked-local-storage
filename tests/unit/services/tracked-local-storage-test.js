@@ -2,7 +2,6 @@ import { module, test } from 'qunit';
 import { setupWindowMock } from 'ember-window-mock/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 
-/* eslint-disable max-lines-per-function */
 module('Unit | Service | tracked local storage', function (hooks) {
   setupRenderingTest(hooks);
   setupWindowMock(hooks);

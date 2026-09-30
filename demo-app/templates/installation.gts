@@ -1,0 +1,11 @@
+import ContentSection from '../components/content-section.gts';
+
+<template>
+  <ContentSection @title="Installation" as |content|>
+    <content.P>
+      Simply run the following command from the root of your ember-cli project:
+    </content.P>
+
+    <content.Code @code="ember install ember-tracked-local-storage" />
+  </ContentSection>
+</template>

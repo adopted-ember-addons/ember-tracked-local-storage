@@ -1,7 +1,6 @@
-import TrackedLocalStorage from 'ember-tracked-local-storage/utils/tracked-local-storage';
+import TrackedLocalStorage from '#src/utils/tracked-local-storage.js';
 import { module, test } from 'qunit';
 
-/* eslint-disable max-lines-per-function */
 module('Unit | Utility | tracked local storage', function (hooks) {
   let trackedLocalStorage;
   const testKey = 'test-key';

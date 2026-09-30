@@ -1,9 +1,8 @@
-import { trackedInLocalStorage } from 'ember-tracked-local-storage/utils/tracked-in-local-storage';
+import { trackedInLocalStorage } from '#src/utils/tracked-in-local-storage.js';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import Service from '@ember/service';
 
-/* eslint-disable max-lines-per-function */
 module('Unit | Utility | tracked in local storage decorator', function (hooks) {
   setupTest(hooks);
 

@@ -1,0 +1,13 @@
+import NavigationItem from './navigation-item.gts';
+
+<template>
+  <h4 class="uppercase font-bold text-gray-600 mb-4">
+    {{@title}}
+  </h4>
+
+  <ul class="mb-10">
+    {{#each @routes as |route|}}
+      <NavigationItem @name={{route.name}} @route={{route.route}} />
+    {{/each}}
+  </ul>
+</template>
