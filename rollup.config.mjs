@@ -29,14 +29,21 @@ export default {
     // These are the modules that should get reexported into the traditional
     // "app" tree. Things in here should also be in publicEntrypoints above, but
     // not everything in publicEntrypoints necessarily needs to go here.
-    addon.appReexports([
-      'components/**/*.js',
-      'helpers/**/*.js',
-      'modifiers/**/*.js',
-      'services/**/*.js',
-      // Kept for compatibility: the v1 addon re-exported this into the app too.
-      'utils/tracked-in-local-storage.js',
-    ]),
+    addon.appReexports(
+      [
+        'components/**/*.js',
+        'helpers/**/*.js',
+        'modifiers/**/*.js',
+        'services/**/*.js',
+        // Kept for compatibility: the v1 addon re-exported this into the app too.
+        'utils/tracked-in-local-storage.js',
+      ],
+      {
+        // This module has only named exports, not a default one.
+        exports: (filename) =>
+          filename === 'utils/tracked-in-local-storage.js' ? '*' : undefined,
+      },
+    ),
 
     // Follow the V2 Addon rules about dependencies. Your code can import from
     // `dependencies` and `peerDependencies` as well as standard Ember-provided
