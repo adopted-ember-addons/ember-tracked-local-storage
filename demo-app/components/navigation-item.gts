@@ -1,0 +1,13 @@
+import { LinkTo } from '@ember/routing';
+
+<template>
+  <li class="text-blue">
+    <LinkTo
+      class="w-full px-4 py-2 hover:bg-gray-200 transition duration-200 block rounded-sm"
+      @route={{@route}}
+      @activeClass="font-bold text-white bg-blue hover:bg-blue"
+    >
+      {{@name}}
+    </LinkTo>
+  </li>
+</template>

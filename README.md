@@ -5,19 +5,32 @@ An addon to allow the use of local storage values to use glimmer tracking and ca
 ## Compatibility
 
 - Ember.js v4.12 or above
-- Ember CLI v4.12 or above
+- Embroider or ember-auto-import v2
 - Node.js v18 or above
+
+This is a [v2 addon](https://rfcs.emberjs.com/id/0507-embroider-v2-package-format/): it works in classic
+ember-cli apps (through ember-auto-import v2) and in Embroider/Vite apps.
 
 ## Installation
 
 ```
-ember install ember-tracked-local-storage
+pnpm add ember-tracked-local-storage
+```
+
+The `tracked-local-storage` service is re-exported into your app, so it resolves as usual in apps that use
+the classic resolver. With a strict resolver (e.g. `ember-strict-application-resolver`), register it yourself:
+
+```js
+import TrackedLocalStorageService from 'ember-tracked-local-storage/services/tracked-local-storage';
+
+// in your app's `modules`
+'./services/tracked-local-storage': TrackedLocalStorageService,
 ```
 
 ## Usage
 
 Simple use case:
-```
+```js
 import Component from '@glimmer/component';
 import { trackedInLocalStorage } from 'ember-tracked-local-storage';
 

@@ -1,0 +1,33 @@
+# Builds the docs site (demo-app/) and publishes it to the gh-pages branch,
+# served at https://adopted-ember-addons.github.io/ember-tracked-local-storage
+name: Docs
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy-docs:
+    name: Deploy docs
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build docs
+        run: pnpm build:docs
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist-docs
